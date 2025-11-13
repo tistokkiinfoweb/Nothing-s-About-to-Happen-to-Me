@@ -4,8 +4,6 @@ from sys import exit
 
 pygame.init()
 
-musica = pygame.mixer_music.load('AC_DC-HellsBells.mp3')
-pygame.mixer.music.play(-1)
 
 tela = pygame.display.set_mode([920,720])
 pygame.display.set_caption('Adventure Cat')
