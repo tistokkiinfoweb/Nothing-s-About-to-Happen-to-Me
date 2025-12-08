@@ -4,6 +4,4 @@
 ## história do jogo:
 **Atenção, spoilers a seguir!!**
 
-  Vivendo na cidade grande, uma simples garota que ainda se adaptava a sua nova rotina, acaba encontrando um gato diferente dos demais abandonado em meio as ruas, intrigada, ela tenta alisar seu pelo, porém o acaba assustando, mas o que a intrigava era o gato estar falando.
-
-  
+  Vivendo na cidade grande, uma simples garota que ainda se adaptava a sua nova rotina, acaba encontrando um gato diferente dos demais abandonado em meio as ruas, intrigada, ela tenta alisar seu pelo, porém o acaba assustando, mas o que a intrigava era o gato estar só em meio as rua.
