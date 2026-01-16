@@ -1,7 +1,7 @@
-# Adventure Cat
+# Nothing's About to Happen to Me
 
 ## Sobre o jogo:
-  O jogo Adventure Cat é um jogo simples e fácil de jogar, trazendo diversas referências para a jogabilidade e as escolhas que serão tomadas pelo usuário ao decorrer do jogo. A ideia surgiu atráves do jogo Nameless Cat, que é um jogo de aventura, e no jogo Milk outside a bag of milk outside a bag of milk, que é um jogo de história, nesse jogo, você é uma garota que acaba adotando um gato de rua, durante essa experiência, você e seu gato irão enfrentar o caminho até chegar em sua casa com seu novo companheiro.
+  O jogo Nothing's About to Happen to Me é um jogo simples e fácil de jogar, trazendo diversas referências para a jogabilidade e as escolhas que serão tomadas pelo usuário ao decorrer do jogo. A ideia surgiu atráves dos jogos Milk inside a bag of milk inside a bag of milk e Milk outside a bag of milk outside a bag of milk, que são dois jogos de história, sendo um a continuação do outro. Nesse jogo, você é uma garota que acaba comprando leite no supermercado, enquanto enfrenta os seus problemas interiores.
   
 ## história do jogo:
 **Atenção, spoilers a seguir!!**
