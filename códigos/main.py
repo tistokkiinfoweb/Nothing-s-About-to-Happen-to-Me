@@ -11,10 +11,13 @@ tela = pygame.display.set_mode((LARGURA, ALTURA))
 pygame.display.set_caption("Nothing's About to Happen to Me")
 clock = pygame.time.Clock()
 
-estado_atual = "menu"
+fonte_titulo = pygame.font.Font("mago3.ttf", 60)
+fonte_botao = pygame.font.Font("mago3.ttf", 32)
 
-menu = Menu()
+menu = Menu(fonte_titulo, fonte_botao)
 historia = Historia()
+
+estado = "menu"
 
 while True:
     for evento in pygame.event.get():
@@ -22,28 +25,54 @@ while True:
             pygame.quit()
             sys.exit()
 
-    if estado_atual == "menu":
+    if estado == "menu":
         menu.evento(evento)
+    elif estado == "jogo":
+            historia.evento(evento)
 
-    if menu.iniciar:
-        estado_atual = "historia"
+    if estado == "menu":
+        if menu.acao == "iniciar":
+            estado = "jogo"
+        if menu.acao == "sair":
+            pygame.quit()
+            sys.exit()
 
-    elif estado_atual == "historia":
-        historia.evento(evento)
-    if historia.finalizada:
-        estado_atual = "menu"
-
-    if estado_atual == "historia":
-        historia.atualizar()
-        if historia.finalizada:
-            estado_atual = "menu"
-
-    # desenhos base
-    if estado_atual == "menu":
         menu.desenhar(tela)
 
-    elif estado_atual == "historia":
-        tela.fill(FUNDO_HISTORIA)
+    elif estado == "jogo":
+        historia.atualizar()
+        historia.desenhar(tela)
+
+        pygame.display.flip()
+        clock.tick(60)
+            
+    elif estado == "jogo":
+        historia.evento(evento)
+
+    if estado == "menu":
+        if menu.acao == "iniciar":
+            estado = "jogo"
+
+        elif menu.acao == "sair":
+            pygame.quit()
+            sys.exit()
+
+    elif estado == "historia":
+        historia.evento(evento)
+    if historia.finalizada:
+        estado = "menu"
+
+    if estado == "historia":
+        historia.atualizar()
+        if historia.finalizada:
+            estado6 = "menu"
+
+    # DESENHO
+    if estado == "menu":
+        menu.desenhar(tela)
+
+    elif estado == "jogo":
+        historia.atualizar()
         historia.desenhar(tela)
 
     pygame.display.flip()
