@@ -11,8 +11,8 @@ BRANCO = (255, 255, 255)
 PRETO = (0, 0, 0)
 VERMELHO = (255,44,44)
 FUNDO_HISTORIA = (30, 30, 30)
-FUNDO_EXPLORACAO = (50, 50, 70)
 
 # Fonte
 pygame.font.init()
+
 FONTE = pygame.font.SysFont('mago3', 40)
