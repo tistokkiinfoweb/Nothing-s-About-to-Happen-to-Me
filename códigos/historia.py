@@ -90,7 +90,7 @@ class Historia:
         self.alpha_atual = PALETAS[self.estado_atual]["alpha"]
         self.alpha_alvo = self.alpha_atual
 
-        self.velocidade_transicao = 0.5  # quanto menor, mais lenta
+        self.velocidade_transicao = 0.5 
 
         self._carregar_fala_atual()
 
@@ -179,7 +179,6 @@ class Historia:
         self.estado_alvo = fala.get("estado", "neutro")
         self.alpha_alvo = PALETAS[self.estado_alvo]["alpha"]
 
-        # escolhas
         self.escolhas = fala.get("escolhas", [])
         self.mostrar_escolhas = False
 
@@ -189,7 +188,6 @@ class Historia:
         if self.texto.terminou() and self.escolhas:
             self.mostrar_escolhas = True
 
-        # transição suave
         if self.alpha_atual < self.alpha_alvo:
             self.alpha_atual += self.velocidade_transicao
         elif self.alpha_atual > self.alpha_alvo:
@@ -243,7 +241,7 @@ class Historia:
         escolha = self.escolhas[indice]
         self.indice_fala = escolha["proxima"]
 
-        # muda estado emocional
+        # mudança de estado emocional
         self.estado_alvo = escolha["estado"]
         self.alpha_alvo = PALETAS[self.estado_alvo]["alpha"]
 
@@ -295,3 +293,4 @@ class Historia:
 
                 self.botoes.append(rect)
                 y += 70
+
