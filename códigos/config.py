@@ -1,4 +1,3 @@
-# config.py
 import pygame
 
 # Tela
@@ -27,5 +26,6 @@ PALETAS = {
 # Botões
 BOTAO_NORMAL = (180, 180, 180)
 BOTAO_HOVER = (230, 230, 230)
-BOTAO_SELECIONADO = (120, 160, 220)  # azul suave
+BOTAO_SELECIONADO = (120, 160, 220) 
 BORDA = 2
+
