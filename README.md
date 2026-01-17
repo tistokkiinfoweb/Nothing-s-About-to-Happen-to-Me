@@ -1,7 +1,7 @@
 # Nothing's About to Happen to Me
 
 ## Sobre o jogo:
-  O jogo Nothing's About to Happen to Me é um jogo simples e fácil de jogar, trazendo diversas referências para a jogabilidade e as escolhas que serão tomadas pelo usuário ao decorrer do jogo. A ideia surgiu atráves dos jogos Milk inside a bag of milk inside a bag of milk e Milk outside a bag of milk outside a bag of milk, que são dois jogos de história, sendo um a continuação do outro. Nesse jogo, você é uma garota que acaba comprando leite no supermercado, enquanto enfrenta os seus problemas interiores.
+  O jogo Nothing's About to Happen to Me é um jogo simples e fácil de jogar, trazendo diversas referências para a jogabilidade e as escolhas que serão tomadas pelo usuário ao decorrer do jogo. A ideia surgiu através dos jogos Milk inside a bag of milk inside a bag of milk e Milk outside a bag of milk outside a bag of milk, que são dois jogos de história, sendo um a continuação do outro. Onde nesses jogos citados, você é uma garota que acaba comprando leite no supermercado, enquanto enfrenta os seus problemas interiores.
   
 ## história do jogo:
 **Atenção, spoilers a seguir!!**
