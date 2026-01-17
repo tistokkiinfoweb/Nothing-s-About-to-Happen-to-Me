@@ -1,4 +1,3 @@
-# main.py
 import pygame
 import sys
 
@@ -77,3 +76,4 @@ while True:
 
     pygame.display.flip()
     clock.tick(FPS)
+
