@@ -1,4 +1,4 @@
-# estados/historia.py
+# historia.py
 import pygame
 from texto import TextoDigitado
 
@@ -35,7 +35,6 @@ class Historia:
     def desenhar(self, tela):
         imagem_atual = self.imagem[self.indice_fala]
 
-        # Centraliza a imagem
         rect = imagem_atual.get_rect(center=(400, 200))
         tela.blit(imagem_atual, rect)
 
