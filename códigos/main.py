@@ -5,18 +5,16 @@ import sys
 from config import *
 from menu import Menu
 from historia import Historia
-from movimento import Exploracao
 
 pygame.init()
 tela = pygame.display.set_mode((LARGURA, ALTURA))
-pygame.display.set_caption("ADVENTURE CAT")
+pygame.display.set_caption("Nothing's About to Happen to Me")
 clock = pygame.time.Clock()
 
 estado_atual = "menu"
 
 menu = Menu()
 historia = Historia()
-exploracao = Exploracao()
 
 while True:
     for evento in pygame.event.get():
@@ -33,27 +31,20 @@ while True:
     elif estado_atual == "historia":
         historia.evento(evento)
     if historia.finalizada:
-        estado_atual = "exploracao"
+        estado_atual = "menu"
 
     if estado_atual == "historia":
         historia.atualizar()
         if historia.finalizada:
-            estado_atual = "exploracao"
+            estado_atual = "menu"
 
-    elif estado_atual == "exploracao":
-        exploracao.atualizar()
-
-    # DESENHO
+    # desenhos base
     if estado_atual == "menu":
         menu.desenhar(tela)
 
     elif estado_atual == "historia":
         tela.fill(FUNDO_HISTORIA)
         historia.desenhar(tela)
-
-    elif estado_atual == "exploracao":
-        tela.fill(FUNDO_EXPLORACAO)
-        exploracao.desenhar(tela)
 
     pygame.display.flip()
     clock.tick(FPS)
