@@ -1,31 +1,190 @@
 import pygame
 from texto import TextoDigitado
-from config import LARGURA, ALTURA, PALETAS, BOTAO_HOVER, BORDA, BOTAO_NORMAL, BOTAO_SELECIONADO, FONTE
+from config import *
+
+
+
+# roteiro
+historia = [
+    {
+        "texto": "Incrível como a cidade continua sendo a mesma.\nMesmo com tantas coisas terríveis pairando sobre si,\nela continua com essa máscara esbanjando beleza para os idiotas.",
+        "imagem": "cidade.png",
+        "cor": VERMELHO,
+        "proximo": 1
+    },
+    {
+        "texto": "Por que estou pensando nisso?\nAté parece que me importo com alguma coisa que acontece por aqui.",
+        "imagem": "olhar_lado.png",
+        "cor": VERMELHO,
+        "proximo": 2
+    },
+    {
+        "texto": "Às vezes eu até queria me importar.\nÉ uma pena existir alguém como eu.\nSem amigos.\nSem importância.",
+        "imagem": "olhar_frente.png",
+        "cor": VERMELHO,
+        "proximo": 3
+    },
+    {
+        "texto": "Estou cansada...\nEu só queria ser alguém melhor.\nMas talvez algum dia tudo isso pare.",
+        "imagem": "olhos_lagrimas.png",
+        "cor": VERMELHO,
+        "proximo": 4
+    },
+    {
+        "texto": "Mas o que é aquilo?\nUm gato?",
+        "imagem": "gato_distante.png",
+        "cor": VERMELHO,
+        "proximo": 5
+    },
+    {
+        "texto": "Um gato de rua.",
+        "imagem": "gato_olhando.png",
+        "cor": VERMELHO,
+        "escolha": {
+            "texto": "O que fazer?",
+            "opcoes": {
+                "Levar o gato para casa": "final_bom",
+                "Seguir reto": "final_ruim"
+            }
+        }
+    }
+]
+
+
+
+final_bom = [
+    {
+        "texto": "Você está sozinho?\nQue idiota...\nAté parece que um gato falaria comigo.",
+        "imagem": "gato_close.png",
+        "cor": VERMELHO,
+        "proximo": 1
+    },
+    {
+        "texto": "Bem...\nAcho que você vem comigo.\nTalvez formemos uma boa dupla.",
+        "imagem": "gato_no_colo.png",
+        "cor": VERMELHO,
+        "proximo": 2
+    },
+    {
+        "texto": "",
+        "imagem": "apartamento_gato.png",
+        "cor": AZUL,
+        "proximo": 3
+    },
+    {
+        "texto": "Talvez adotar você não tenha sido uma má ideia.\nPelo menos agora o silêncio é diferente.\nTalvez eu também mereça cuidado.\nTalvez agora eu tenha coragem de pedir ajuda.",
+        "imagem": None,
+        "cor": AZUL
+    }
+]
+
+
+
+final_ruim = [
+    {
+        "texto": "Você não é o único que está sozinho.\nMas eu não sou boa o suficiente para cuidar de você.",
+        "imagem": "gato_olhando.png",
+        "cor": VERMELHO,
+        "proximo": 1
+    },
+    {
+        "texto": "Adeus, gato.\nTenho coisas mais importantes para lidar.",
+        "imagem": "afastando.png",
+        "cor": VERMELHO_ESCURO,
+        "proximo": 2
+    },
+    {
+        "texto": "Adeus...",
+        "imagem": "olhar_camera.png",
+        "cor": VERMELHO_ESCURO,
+        "proximo": 3
+    },
+    {
+        "texto": "Tudo continua do mesmo jeito.\nA cada dia, o medo desaparece.\nE essa ideia estranha não assusta mais como antes.",
+        "imagem": None,
+        "cor": VERMELHO_ESCURO
+    }
+]
+
+
 
 class Historia:
     def __init__(self):
-        self.escolhas = []
-        self.mostrar_escolhas = False
-        self.selecao = 0
+        # --- ROTEIRO ---
+        self.cenas = historia
+        self.indice = 0
+        self.cena_atual = self.cenas[self.indice]
+
+        # --- TEXTO ---
+        self.texto = TextoDigitado(self.cena_atual["texto"])
+
+        # --- IMAGEM ---
+        self.imagem = self._carregar_imagem(self.cena_atual["imagem"])
+
+        # --- COR / FILTRO ---
+        self.cor_atual = self.cena_atual["cor"]
+
+        # --- TEMPO ---
         self.tempo_fim_texto = None
-        self.tempo_espera = 5000  
+        self.tempo_espera = 5000
+
+        # --- ESCOLHAS ---
+        self.em_escolha = True
+        self.opcoes = [
+            ("Levar o gato para casa", "final_bom"),
+            ("Seguir reto", "final_ruim")
+        ]
+
+
+
 
     @property
-    def mostrar_escolhas(self):
-        return self.__mostrar_escolhas
+    def cenas(self):
+        return self.__cenas
     
-    @mostrar_escolhas.setter
-    def mostrar_escolhas(self, novo_mostrar_escolhas):
-        self.__mostrar_escolhas = novo_mostrar_escolhas
+    @cenas.setter
+    def cenas(self, novas_cenas):
+        self.__cenas = novas_cenas
 
     @property
-    def selecao(self):
-        return self.__selecao
+    def indice(self):
+        return self.__indice
     
-    @selecao.setter
-    def selecao(self, nova_selecao):
-        self.__selecao = nova_selecao
+    @indice.setter
+    def indice(self, nova_indice):
+        self.__indice = nova_indice
 
+    @property
+    def cena_atual(self):
+        return self.__cena_atual
+    
+    @cena_atual.setter
+    def cena_atual(self, novo_cena_atual):
+        self.__cena_atual = novo_cena_atual
+    
+    @property
+    def texto(self):
+        return self.__texto
+    
+    @texto.setter
+    def texto(self, novo_texto):
+        self.__texto = novo_texto   
+
+    @property
+    def imagem(self):
+        return self.__imagem
+    
+    @imagem.setter
+    def imagem(self, nova_imagem):
+        self.__imagem = nova_imagem
+    
+    @property
+    def cor_atual(self):
+        return self.__cor_atual
+    
+    @cor_atual.setter
+    def cor_atual(self, nova_cor_atual):
+        self.__cor_atual = nova_cor_atual
     @property
     def tempo_fim_texto(self):
         return self.__tempo_fim_texto
@@ -33,7 +192,7 @@ class Historia:
     @tempo_fim_texto.setter
     def tempo_fim_texto(self, novo_tempo_fim_texto):
         self.__tempo_fim_texto = novo_tempo_fim_texto
-    
+
     @property
     def tempo_espera(self):
         return self.__tempo_espera
@@ -42,255 +201,148 @@ class Historia:
     def tempo_espera(self, novo_tempo_espera):
         self.__tempo_espera = novo_tempo_espera
 
-        self.falas = [
-            {
-                "texto": "A cidade parece grande demais.",
-                "imagem": "",
-                "estado": "instavel",
-            },
-            {
-                "texto": "Um gato parado na calcada.",
-                "imagem": "",
-                "estado": "instavel",
-                "escolhas": [
-                    {
-                        "texto": "Adotar o gato",
-                        "proxima": 2,
-                        "estado": "calmo"
-                    },
-                    {
-                        "texto": "Seguir em frente",
-                        "proxima": 3,
-                        "estado": "apagado"
-                    }
-                ]
-            },
-            {
-                "texto": "O silencio em casa e diferente agora.",
-                "imagem": "",
-                "estado": "calmo",
-            },
-            {
-                "texto": "A cidade continua a mesma.",
-                "imagem": "",
-                "estado": "apagado",
-            }
-        ]
-
-
-        self.indice_fala = 0
-        self.finalizada = False
-
-        self.texto = TextoDigitado(velocidade=40)
-
-        # --- CONTROLE DE TRANSIÇÃO ---
-        self.estado_atual = "instavel"
-        self.estado_alvo = "instavel"
-
-        self.alpha_atual = PALETAS[self.estado_atual]["alpha"]
-        self.alpha_alvo = self.alpha_atual
-
-        self.velocidade_transicao = 0.5 
-
-        self._carregar_fala_atual()
+    @property
+    def em_escolha(self):
+        return self.__em_escolha
+    
+    @em_escolha.setter
+    def em_escolha(self, nova_em_escolha):
+        self.__em_escolha = nova_em_escolha
 
     @property
-    def falas(self):
-        return self.__falas
+    def opcoes(self):
+        return self.__opcoes
     
-    @falas.setter
-    def falas(self, novas_falas):
-        self.__falas = novas_falas
+    @opcoes.setter
+    def opcoes(self, nova_opcoes):
+        self.__opcoes = nova_opcoes
 
-    @property
-    def indice_fala(self):
-        return self.__indice_fala
-    
-    @indice_fala.setter
-    def indice_fala(self, nova_indice_fala):
-        self.__indice_fala = nova_indice_fala
 
-    @property
-    def finalizada(self):
-        return self.__finalizada
-    
-    @finalizada.setter
-    def finalizada(self, nova_finalizada):
-        self.__finalizada = nova_finalizada
 
-    @property
-    def texto(self):
-        return self.__texto
-    
-    @texto.setter
-    def texto(self, novo_texto):
-        self.__texto = novo_texto
-
-    @property
-    def estado_atual(self):
-        return self.__estado_atual
-    
-    @estado_atual.setter
-    def estado_atual(self, novo_estado_atual):
-        self.__estado_atual = novo_estado_atual
-
-    @property
-    def estado_alvo(self):
-        return self.__estado_alvo
-    
-    @estado_alvo.setter
-    def estado_alvo(self, novo_estado_alvo):
-        self.__estado_alvo = novo_estado_alvo
-
-    @property
-    def alpha_atual(self):
-        return self.__alpha_atual
-    
-    @alpha_atual.setter
-    def alpha_atual(self, novo_alpha_atual):
-        self.__alpha_atual = novo_alpha_atual
-
-    @property
-    def alpha_alvo(self):
-        return self.__alpha_alvo
-    
-    @alpha_alvo.setter
-    def alpha_alvo(self, novo_alpha_alvo):
-        self.__alpha_alvo = novo_alpha_alvo
-
-    @property
-    def velocidade_transicao(self):
-        return self.__velocidade_transicao
-    
-    @velocidade_transicao.setter
-    def velocidade_transicao(self, nova_velocidade_transicao):
-        self.__velocidade_transicao = nova_velocidade_transicao
-
-    def _carregar_fala_atual(self):
-        fala = self.falas[self.indice_fala]
-
-        self.tempo_fim_texto = None
-
-        self.texto.iniciar(fala["texto"])
-
-        self.imagem = pygame.image.load(fala["imagem"]).convert()
-        self.imagem = pygame.transform.scale(self.imagem, (LARGURA, ALTURA))
-
-        self.estado_alvo = fala.get("estado", "neutro")
-        self.alpha_alvo = PALETAS[self.estado_alvo]["alpha"]
-
-        self.escolhas = fala.get("escolhas", [])
-        self.mostrar_escolhas = False
+    def _carregar_imagem(self, nome):
+        if nome is None:
+            return None
+        imagem = pygame.image.load(nome).convert()
+        return pygame.transform.scale(imagem, (LARGURA, ALTURA))
 
     def atualizar(self):
         self.texto.atualizar()
 
-        if self.texto.terminou() and self.escolhas:
-            self.mostrar_escolhas = True
-
-        if self.alpha_atual < self.alpha_alvo:
-            self.alpha_atual += self.velocidade_transicao
-        elif self.alpha_atual > self.alpha_alvo:
-            self.alpha_atual -= self.velocidade_transicao
-
-        self.alpha_atual = max(0, min(self.alpha_atual, 255))
-
-        if self.texto.terminou() and not self.escolhas:
+        if self.texto.terminou() and not self.em_escolha:
             if self.tempo_fim_texto is None:
                 self.tempo_fim_texto = pygame.time.get_ticks()
             else:
                 agora = pygame.time.get_ticks()
                 if agora - self.tempo_fim_texto >= self.tempo_espera:
-                    self.indice_fala += 1
+                    self.avancar()
 
-                    if self.indice_fala < len(self.falas):
-                        self._carregar_fala_atual()
-                    else:
-                        self.finalizada = True
+
+    def avancar(self):
+        self.tempo_fim_texto = None
+
+        if "escolha" in self.cena_atual:
+            self.em_escolha = True
+            self.opcoes = list(self.cena_atual["escolha"]["opcoes"].items())
+            return
+
+        proximo = self.cena_atual.get("proximo")
+        if proximo is None:
+            return
+
+        self.indice = proximo
+        self._trocar_cena()
+
+
+    def _trocar_cena(self):
+        self.cena_atual = self.cenas[self.indice]
+        self.texto = TextoDigitado(self.cena_atual["texto"])
+        self.imagem = self._carregar_imagem(self.cena_atual["imagem"])
+        self.cor_atual = self.cena_atual["cor"]
 
     def evento(self, evento):
-        if self.mostrar_escolhas:
-            if evento.type == pygame.KEYDOWN:
-                if evento.key == pygame.K_UP:
-                    self.selecao = max(0, self.selecao - 1)
+        if self.em_escolha and evento.type == pygame.MOUSEBUTTONDOWN:
+            if evento.button == 1:
+                for i, rect in enumerate(self.botoes):
+                    if rect.collidepoint(evento.pos):
+                        _, destino = self.opcoes[i]
+                        self._ir_para_final(destino)
 
-                if evento.key == pygame.K_DOWN:
-                    self.selecao = min(len(self.escolhas) - 1, self.selecao + 1)
+    def _ir_para_final(self, nome_final):
+        if nome_final == "final_bom":
+            self.cenas = final_bom
+        else:
+            self.cenas = final_ruim
 
-                if evento.key in (pygame.K_RETURN, pygame.K_SPACE):
-                    self._escolher(self.selecao)
+        self.indice = 0
+        self.em_escolha = False
+        self._trocar_cena()
 
-            if evento.type == pygame.MOUSEBUTTONDOWN:
-                if evento.button == 1:
-                    for i, botao in enumerate(self.botoes):
-                        if botao.collidepoint(evento.pos):
-                            self._escolher(i)
-            return
+    def desenhar_caixa_texto(self, tela, texto_surface, estado):
+        dados = ESTADOS.get(estado, ESTADOS["neutro"])
+        cor = dados["cor"]
+        alpha = dados["alpha"]
 
-        if evento.type == pygame.KEYDOWN:
-            if evento.key in (pygame.K_SPACE, pygame.K_RETURN):
-                if self.texto.terminou():
-                    self.indice_fala += 1
-                    if self.indice_fala < len(self.falas):
-                        self._carregar_fala_atual()
-                        self.tempo_fim_texto = None
-                    else:
-                        self.finalizada = True
+        largura = LARGURA - 80
+        linhas = texto_surface.get_height() // 20
+        altura = 150 + (linhas * 5)
+        x = 40
+        y = ALTURA - altura - 30
 
-    def _escolher(self, indice):
-        escolha = self.escolhas[indice]
-        self.indice_fala = escolha["proxima"]
+        # fundo transparente
+        caixa = pygame.Surface((largura, altura), pygame.SRCALPHA)
+        caixa.fill((0, 0, 0, alpha))
+        tela.blit(caixa, (x, y))
 
-        # mudança de estado emocional
-        self.estado_alvo = escolha["estado"]
-        self.alpha_alvo = PALETAS[self.estado_alvo]["alpha"]
+        # borda fina
+        espessura = 2 if cor == VERMELHO else 1
+        pygame.draw.rect(
+            tela,
+            cor,
+            (x, y, largura, altura),
+            espessura
+        )
 
-        self.mostrar_escolhas = False
-        self._carregar_fala_atual()
+        # texto
+        tela.blit(texto_surface, (x + 20, y + 20))
 
+        pulso = (pygame.time.get_ticks() // 500) % 2
+        if pulso:
+            largura += 1
+            altura += 1
 
-    def _aplicar_filtro(self, tela):
-        dados = PALETAS.get(self.estado_alvo)
-        if not dados or not dados["overlay"]:
-            return
-
-        camada = pygame.Surface(tela.get_size())
-        camada.fill(dados["overlay"])
-        camada.set_alpha(int(self.alpha_atual))
-        tela.blit(camada, (0, 0))
 
     def desenhar(self, tela):
-        tela.blit(self.imagem, (0, 0))
-        self._aplicar_filtro(tela)
-        self.texto.desenhar(tela)
+        if self.imagem:
+            tela.blit(self.imagem, (0, 0))
 
-        if self.mostrar_escolhas:
-            self.botoes = []
-            mouse_pos = pygame.mouse.get_pos()
-            y = ALTURA - 260
+        # --- caixa de texto ---
+        dados = ESTADOS.get(self.estado, ESTADOS["neutro"])
+        cor = dados["cor"]
 
-            pulso = (pygame.time.get_ticks() // 500) % 2
+        texto_surface = self.texto.renderizar(cor)
+        self.desenhar_caixa_texto(tela, texto_surface, self.estado)
 
-            for i, escolha in enumerate(self.escolhas):
-                rect = pygame.Rect(100, y, LARGURA - 200, 50)
+        # --- Botões de escolha ---
+        if self.em_escolha:
+            self._desenhar_escolhas(tela, cor)
 
-                hover = rect.collidepoint(mouse_pos)
-                selecionado = (i == self.selecao)
+    def _desenhar_escolhas(self, tela, cor):
+        fonte = pygame.font.Font("mago1.ttf", 20)
+        mouse = pygame.mouse.get_pos()
 
-            if selecionado:
-                cor = BOTAO_SELECIONADO
-            elif hover:
-                cor = BOTAO_HOVER
-            else:
-                cor = BOTAO_NORMAL
+        y_inicial = ALTURA - 90
+        self.botoes = []
 
-                borda = 3 if selecionado and pulso else 2
-                pygame.draw.rect(tela, cor, rect, borda)
+        for i, (texto, _) in enumerate(self.opcoes):
+            render = fonte.render(texto, True, cor)
+            rect = render.get_rect(center=(LARGURA // 2, y_inicial))
 
-                texto = f"{i+1}. {escolha['texto']}"
-                render = self.texto.FONTE.render(texto, True, cor)
-                tela.blit(render, (rect.x + 20, rect.y + 12))
+            hover = rect.collidepoint(mouse)
+            cor_texto = cor if hover else (120, 120, 120)
 
-                self.botoes.append(rect)
-                y += 70
+            render = fonte.render(texto, True, cor_texto)
+            tela.blit(render, rect)
+
+            self.botoes.append(rect)
+            y_inicial += 30
 
