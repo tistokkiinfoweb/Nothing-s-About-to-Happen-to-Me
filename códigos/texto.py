@@ -58,6 +58,29 @@ class TextoDigitado:
     def ultimo_tempo(self, novo_ultimo_tempo):
         self.__ultimo_tempo = novo_ultimo_tempo
 
+
+    
+    def renderizar(self, cor):
+        linhas = self.texto_visivel.split("\n")
+        surfaces = []
+
+        for linha in linhas:
+            render = self.fonte.render(linha, True, cor)
+            surfaces.append(render)
+
+        largura = max(s.get_width() for s in surfaces)
+        altura = sum(s.get_height() for s in surfaces)
+
+        surface = pygame.Surface((largura, altura), pygame.SRCALPHA)
+
+        y = 0
+        for s in surfaces:
+            surface.blit(s, (0, y))
+            y += s.get_height()
+
+        return surface
+
+
     def iniciar(self, texto):
         self.texto_completo = texto
         self.texto_visivel = ""
@@ -82,5 +105,3 @@ class TextoDigitado:
 
         render = FONTE.render(self.texto_visivel, True, BRANCO)
         tela.blit(render, (70, 430))
-
-
