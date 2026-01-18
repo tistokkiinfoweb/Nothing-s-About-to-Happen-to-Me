@@ -8,24 +8,34 @@ FPS = 60
 # Cores
 BRANCO = (255, 255, 255)
 PRETO = (0, 0, 0)
-VERMELHO = (255,44,44)
-FUNDO_HISTORIA = (30, 30, 30)
+VERMELHO = (120, 0, 0)
+VERMELHO_ESCURO = (60, 0, 0)
+AZUL = (80, 120, 200)
+
 
 # Fonte
 pygame.font.init()
-FONTE = pygame.font.Font("mago3.ttf", 40)
+FONTE = pygame.font.Font("mago1.ttf", 40)
 
-# Paletas de sentimentos
-PALETAS = {
-    "instavel": {"overlay": (120, 0, 0), "alpha": 80},
-    "calmo": {"overlay": (40, 90, 160), "alpha": 60},
-    "apagado": {"overlay": (0, 0, 0), "alpha": 120},
-    "neutro": {"overlay": None, "alpha": 0},
+# Estados de sentimentos
+ESTADOS = {
+    "instavel": {
+        "cor": (200, 40, 40), 
+        "alpha": 150
+    },
+    "calmo": {
+        "cor": (80, 140, 255),  
+        "alpha": 190
+    },
+    "neutro": {
+        "cor": (220, 220, 220),  
+        "alpha": 170
+    }
 }
+
 
 # Botões
 BOTAO_NORMAL = (180, 180, 180)
 BOTAO_HOVER = (230, 230, 230)
-BOTAO_SELECIONADO = (120, 160, 220) 
+BOTAO_SELECIONADO = (120, 160, 220)  # azul suave
 BORDA = 2
-
