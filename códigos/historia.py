@@ -54,13 +54,13 @@ historia = [
 
 final_bom = [
     {
-        "texto": "Você está sozinho?\nQue idiota...\nAté parece que um gato falaria comigo.",
+        "texto": "Você está sozinho?\nQue idiota...\nAté parece que um gato falaria comigo.\nIsso é tão surreal quanto eu ser uma personagem de um jogo com a história triste kakakakakaka",
         "imagem": "gato_close.png",
         "cor": VERMELHO,
         "proximo": 1
     },
     {
-        "texto": "Bem...\nAcho que você vem comigo.\nTalvez formemos uma boa dupla.",
+        "texto": "Bem...Acho que você vem comigo.\nTalvez formemos uma boa dupla.",
         "imagem": "gato_no_colo.png",
         "cor": VERMELHO,
         "proximo": 2
@@ -72,7 +72,7 @@ final_bom = [
         "proximo": 3
     },
     {
-        "texto": "Talvez adotar você não tenha sido uma má ideia.\nPelo menos agora o silêncio é diferente.\nTalvez eu também mereça cuidado.\nTalvez agora eu tenha coragem de pedir ajuda.",
+        "texto": "Talvez adotar você não tenha sido uma má ideia.\nPelo menos eu não me sinto tão só… \nObrigada por me ajudar meu bichano. \nTalvez agora eu tenha coragem de pedir ajuda.",
         "imagem": None,
         "cor": AZUL
     }
@@ -82,13 +82,13 @@ final_bom = [
 
 final_ruim = [
     {
-        "texto": "Você não é o único que está sozinho.\nMas eu não sou boa o suficiente para cuidar de você.",
+        "texto": "Você não é o único que está sozinho.\nAlgum dia você entende que eu nunca serei boa o suficiente para cuidar de você.",
         "imagem": "gato_olhando.png",
         "cor": VERMELHO,
         "proximo": 1
     },
     {
-        "texto": "Adeus, gato.\nTenho coisas mais importantes para lidar.",
+        "texto": "Adeus, gato.\nTenho problemas mais importantes para lidar.",
         "imagem": "afastando.png",
         "cor": VERMELHO_ESCURO,
         "proximo": 2
@@ -100,7 +100,7 @@ final_ruim = [
         "proximo": 3
     },
     {
-        "texto": "Tudo continua do mesmo jeito.\nA cada dia, o medo desaparece.\nE essa ideia estranha não assusta mais como antes.",
+        "texto": "E tudo continua do mesmo jeito. \nA cada dia que passa, o medo vai embora. \nE a cada dia que passa, essa ideia não assusta mais como antes.",
         "imagem": None,
         "cor": VERMELHO_ESCURO
     }
@@ -345,4 +345,5 @@ class Historia:
 
             self.botoes.append(rect)
             y_inicial += 30
+
 
