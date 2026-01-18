@@ -40,7 +40,7 @@ Cor Ambiente: Vermelho
 
 Imagem: Foco no olhar da personagem, com lágrimas se formando nos olhos.
 
-Diálogo: "Estou cansada.... Eu só queria ser alguém melhor. Mas não tem problema, algum dia eu terei coragem e acabarei de vez com tudo isso."
+Diálogo: "Estou cansada.... Eu só queria ser alguém melhor. Mas não tem problema, algum dia tudo isso vai parar."
 
 Cor Ambiente: Vermelho
 
@@ -96,7 +96,7 @@ Cor Ambiente: Mudança gradual de vermelho para um azul calmo como o oceano.
 
 Imagem: Tela preta.
 
-Diálogo: "Até que não foi uma má ideia adotar o gatinho. Pelo menos eu não me sinto tão só. Obrigada por me ajudar meu bichano. Agora eu finalmente tenho coragem de pedir ajuda"
+Diálogo: "Até que não foi uma má ideia adotar o gatinho. Pelo menos eu não me sinto tão só. Obrigada por me ajudar meu bichano. Talvez agora eu tenha coragem de pedir ajuda."
 
 Cor Ambiente: Azul calmo como o oceano
 
@@ -130,7 +130,7 @@ Cor Ambiente: Vermelho escuro
 
 Imagem: Tela preta.
 
-Diálogo: "E tudo continua do mesmo jeito. A cada dia que passa, o medo vai embora. E a cada dia que passa, essa decisão que estou prestes a tomar se torna a mais certa possível"
+Diálogo: "E tudo continua do mesmo jeito. A cada dia que passa, o medo vai embora. E a cada dia que passa, essa ideia não assusta mais como antes"
 
 Cor Ambiente: Vermelho escuro
 
