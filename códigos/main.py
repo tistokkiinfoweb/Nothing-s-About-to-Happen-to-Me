@@ -10,8 +10,8 @@ tela = pygame.display.set_mode((LARGURA, ALTURA))
 pygame.display.set_caption("Nothing's About to Happen to Me")
 clock = pygame.time.Clock()
 
-fonte_titulo = pygame.font.Font("mago3.ttf", 60)
-fonte_botao = pygame.font.Font("mago3.ttf", 32)
+fonte_titulo = pygame.font.Font("mago1.ttf", 60)
+fonte_botao = pygame.font.Font("mago1.ttf", 32)
 
 menu = Menu(fonte_titulo, fonte_botao)
 historia = Historia()
@@ -76,4 +76,3 @@ while True:
 
     pygame.display.flip()
     clock.tick(FPS)
-
