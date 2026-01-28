@@ -17,6 +17,8 @@ menu = Menu(fonte_titulo, fonte_botao)
 historia = Historia()
 
 estado = "menu"
+fade_alpha = 0
+fade_velocidade = 2
 
 while True:
     for evento in pygame.event.get():
@@ -24,55 +26,53 @@ while True:
             pygame.quit()
             sys.exit()
 
-    if estado == "menu":
-        menu.evento(evento)
-    elif estado == "jogo":
+        if estado == "menu":
+            menu.evento(evento)
+
+        elif estado == "jogo":
             historia.evento(evento)
 
+    #ATUALIZAÇÃO
     if estado == "menu":
         if menu.acao == "iniciar":
-            estado = "jogo"
-        if menu.acao == "sair":
-            pygame.quit()
-            sys.exit()
-
-        menu.desenhar(tela)
-
-    elif estado == "jogo":
-        historia.atualizar()
-        historia.desenhar(tela)
-
-        pygame.display.flip()
-        clock.tick(60)
-            
-    elif estado == "jogo":
-        historia.evento(evento)
-
-    if estado == "menu":
-        if menu.acao == "iniciar":
+            historia = Historia()
+            fade_alpha = 0
             estado = "jogo"
 
         elif menu.acao == "sair":
             pygame.quit()
             sys.exit()
 
-    elif estado == "historia":
-        historia.evento(evento)
-    if historia.finalizada:
-        estado = "menu"
-
-    if estado == "historia":
+    elif estado == "jogo":
         historia.atualizar()
-        if historia.finalizada:
-            estado6 = "menu"
 
-    # DESENHO
+        if historia.finalizada:
+            fade_alpha = 0
+            estado = "fade"
+
+    elif estado == "fade":
+        fade_alpha += fade_velocidade
+        if fade_alpha >= 255:
+            fade_alpha = 255
+            menu.acao = None
+            estado = "menu"
+
+    #DESENHO 
+    tela.fill(PRETO)
+
     if estado == "menu":
         menu.desenhar(tela)
 
     elif estado == "jogo":
-        historia.atualizar()
         historia.desenhar(tela)
+
+    elif estado == "fade":
+        historia.desenhar(tela)
+
+        fade = pygame.Surface((LARGURA, ALTURA))
+        fade.fill((0, 0, 0))
+        fade.set_alpha(fade_alpha)
+        tela.blit(fade, (0, 0))
 
     pygame.display.flip()
     clock.tick(FPS)
