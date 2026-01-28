@@ -1,5 +1,5 @@
 import pygame
-from texto import TextoDigitado
+from texto import *
 from config import *
 
 
@@ -8,37 +8,37 @@ from config import *
 historia = [
     {
         "texto": "Incrível como a cidade continua sendo a mesma.\nMesmo com tantas coisas terríveis pairando sobre si,\nela continua com essa máscara esbanjando beleza para os idiotas.",
-        "imagem": "cidade.png",
+        "imagem": "yuri .jpg",
         "cor": VERMELHO,
         "proximo": 1
     },
     {
         "texto": "Por que estou pensando nisso?\nAté parece que me importo com alguma coisa que acontece por aqui.",
-        "imagem": "olhar_lado.png",
+        "imagem": "teto.jpg",
         "cor": VERMELHO,
         "proximo": 2
     },
     {
         "texto": "Às vezes eu até queria me importar.\nÉ uma pena existir alguém como eu.\nSem amigos.\nSem importância.",
-        "imagem": "olhar_frente.png",
+        "imagem": "yuri .jpg",
         "cor": VERMELHO,
         "proximo": 3
     },
     {
         "texto": "Estou cansada...\nEu só queria ser alguém melhor.\nMas talvez algum dia tudo isso pare.",
-        "imagem": "olhos_lagrimas.png",
+        "imagem": "teto.jpg",
         "cor": VERMELHO,
         "proximo": 4
     },
     {
         "texto": "Mas o que é aquilo?\nUm gato?",
-        "imagem": "gato_distante.png",
+        "imagem": "yuri .jpg",
         "cor": VERMELHO,
         "proximo": 5
     },
     {
         "texto": "Um gato de rua.",
-        "imagem": "gato_olhando.png",
+        "imagem": "teto.jpg",
         "cor": VERMELHO,
         "escolha": {
             "texto": "O que fazer?",
@@ -55,19 +55,19 @@ historia = [
 final_bom = [
     {
         "texto": "Você está sozinho?\nQue idiota...\nAté parece que um gato falaria comigo.\nIsso é tão surreal quanto eu ser uma personagem de um jogo com a história triste kakakakakaka",
-        "imagem": "gato_close.png",
+        "imagem": "yuri .jpg",
         "cor": VERMELHO,
         "proximo": 1
     },
     {
         "texto": "Bem...Acho que você vem comigo.\nTalvez formemos uma boa dupla.",
-        "imagem": "gato_no_colo.png",
+        "imagem": "teto.jpg",
         "cor": VERMELHO,
         "proximo": 2
     },
     {
         "texto": "",
-        "imagem": "apartamento_gato.png",
+        "imagem": "yuri .jpg",
         "cor": AZUL,
         "proximo": 3
     },
@@ -83,19 +83,19 @@ final_bom = [
 final_ruim = [
     {
         "texto": "Você não é o único que está sozinho.\nAlgum dia você entende que eu nunca serei boa o suficiente para cuidar de você.",
-        "imagem": "gato_olhando.png",
+        "imagem": "yuri .jpg",
         "cor": VERMELHO,
         "proximo": 1
     },
     {
         "texto": "Adeus, gato.\nTenho problemas mais importantes para lidar.",
-        "imagem": "afastando.png",
+        "imagem": "teto.jpg",
         "cor": VERMELHO_ESCURO,
         "proximo": 2
     },
     {
         "texto": "Adeus...",
-        "imagem": "olhar_camera.png",
+        "imagem": "yuri .jpg",
         "cor": VERMELHO_ESCURO,
         "proximo": 3
     },
@@ -129,13 +129,14 @@ class Historia:
         self.tempo_espera = 5000
 
         # --- ESCOLHAS ---
-        self.em_escolha = True
+        self.em_escolha = False
         self.opcoes = [
             ("Levar o gato para casa", "final_bom"),
             ("Seguir reto", "final_ruim")
         ]
 
-
+        self.botoes = []
+        self.finalizada = False
 
 
     @property
@@ -228,14 +229,16 @@ class Historia:
     def atualizar(self):
         self.texto.atualizar()
 
-        if self.texto.terminou() and not self.em_escolha:
+        if self.em_escolha:
+            return 
+
+        if self.texto.terminou():
             if self.tempo_fim_texto is None:
                 self.tempo_fim_texto = pygame.time.get_ticks()
             else:
                 agora = pygame.time.get_ticks()
                 if agora - self.tempo_fim_texto >= self.tempo_espera:
                     self.avancar()
-
 
     def avancar(self):
         self.tempo_fim_texto = None
@@ -245,12 +248,14 @@ class Historia:
             self.opcoes = list(self.cena_atual["escolha"]["opcoes"].items())
             return
 
-        proximo = self.cena_atual.get("proximo")
-        if proximo is None:
+        self.indice += 1
+
+        if self.indice >= len(self.cenas):
+            self.finalizada = True
             return
 
-        self.indice = proximo
         self._trocar_cena()
+
 
 
     def _trocar_cena(self):
@@ -260,12 +265,16 @@ class Historia:
         self.cor_atual = self.cena_atual["cor"]
 
     def evento(self, evento):
-        if self.em_escolha and evento.type == pygame.MOUSEBUTTONDOWN:
-            if evento.button == 1:
-                for i, rect in enumerate(self.botoes):
-                    if rect.collidepoint(evento.pos):
-                        _, destino = self.opcoes[i]
-                        self._ir_para_final(destino)
+        if not self.em_escolha:
+            return
+
+        if evento.type == pygame.MOUSEBUTTONDOWN and evento.button == 1:
+            for i, rect in enumerate(self.botoes):
+                if rect.collidepoint(evento.pos):
+                    _, destino = self.opcoes[i]
+                    self._ir_para_final(destino)
+                    return
+
 
     def _ir_para_final(self, nome_final):
         if nome_final == "final_bom":
@@ -275,10 +284,12 @@ class Historia:
 
         self.indice = 0
         self.em_escolha = False
-        self._trocar_cena()
+        self.finalizada = False
+        self._trocar_cena() 
+
 
     def desenhar_caixa_texto(self, tela, texto_surface, estado):
-        dados = ESTADOS.get(estado, ESTADOS["neutro"])
+        dados = ESTADOS.get("historia", ESTADOS["neutro"])
         cor = dados["cor"]
         alpha = dados["alpha"]
 
@@ -314,36 +325,30 @@ class Historia:
     def desenhar(self, tela):
         if self.imagem:
             tela.blit(self.imagem, (0, 0))
+        else:
+            tela.fill(PRETO)
 
-        # --- caixa de texto ---
-        dados = ESTADOS.get(self.estado, ESTADOS["neutro"])
-        cor = dados["cor"]
+        cor = self.cor_atual
 
         texto_surface = self.texto.renderizar(cor)
-        self.desenhar_caixa_texto(tela, texto_surface, self.estado)
+        self.desenhar_caixa_texto(tela, texto_surface, estado="historia")
 
-        # --- Botões de escolha ---
         if self.em_escolha:
             self._desenhar_escolhas(tela, cor)
 
-    def _desenhar_escolhas(self, tela, cor):
-        fonte = pygame.font.Font("mago1.ttf", 20)
-        mouse = pygame.mouse.get_pos()
 
-        y_inicial = ALTURA - 90
+    def _desenhar_escolhas(self, tela, cor):
+        fonte = pygame.font.Font("mago1.ttf", 30)
+
         self.botoes = []
 
-        for i, (texto, _) in enumerate(self.opcoes):
+        y = ALTURA - 80
+
+        for texto, _ in self.opcoes:
             render = fonte.render(texto, True, cor)
-            rect = render.get_rect(center=(LARGURA // 2, y_inicial))
+            rect = render.get_rect(center=(LARGURA // 2, y))
 
-            hover = rect.collidepoint(mouse)
-            cor_texto = cor if hover else (120, 120, 120)
-
-            render = fonte.render(texto, True, cor_texto)
             tela.blit(render, rect)
-
             self.botoes.append(rect)
-            y_inicial += 30
 
-
+            y += 30
