@@ -62,7 +62,6 @@ class Menu:
                 self.acao = "sair"
 
     def desenhar(self, tela):
-        tela.fill(0,0,0)
         mouse_pos = pygame.mouse.get_pos()
 
         # Título
