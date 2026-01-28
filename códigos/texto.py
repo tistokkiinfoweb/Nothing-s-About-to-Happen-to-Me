@@ -2,7 +2,7 @@ import pygame
 from config import PRETO, BRANCO, FONTE
 
 class TextoDigitado:
-    def __init__(self, velocidade=15):
+    def __init__(self, velocidade=10):
         self.fonte = FONTE
         self.velocidade = velocidade
         self.texto_completo = ""
