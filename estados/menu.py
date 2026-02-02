@@ -1,78 +1,85 @@
 import pygame
-import sys
+from config import LARGURA, ALTURA, PRETO, BRANCO
 
-from config import *
-from menu import Menu
-from historia import Historia
+BOTAO_NORMAL = (180, 180, 180)
+BOTAO_HOVER = (230, 230, 230)
 
-pygame.init()
-tela = pygame.display.set_mode((LARGURA, ALTURA))
-pygame.display.set_caption("Nothing's About to Happen to Me")
-clock = pygame.time.Clock()
+class Menu:
+    def __init__(self, fonte_titulo, fonte_botao):
+        self.fonte_titulo = fonte_titulo
+        self.fonte_botao = fonte_botao
 
-fonte_titulo = pygame.font.Font("mago1.ttf", 60)
-fonte_botao = pygame.font.Font("mago1.ttf", 32)
+        self.botoes = {
+            "iniciar": pygame.Rect(LARGURA//2 - 150, ALTURA//2, 300, 50),
+            "sair": pygame.Rect(LARGURA//2 - 150, ALTURA//2 + 80, 300, 50),
+        }
 
-menu = Menu(fonte_titulo, fonte_botao)
-historia = Historia()
+        self.acao = None
 
-estado = "menu"
-fade_alpha = 0
-fade_velocidade = 2
+    @property
+    def fonte_titulo(self):
+        return self.__fonte_titulo
+    
+    @fonte_titulo.setter
+    def fonte_titulo(self, nova_fonte_titulo):
+        self.__fonte_titulo = nova_fonte_titulo
 
-while True:
-    for evento in pygame.event.get():
-        if evento.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+    @property
+    def fonte_botao(self):
+        return self.__fonte_botao
+    
+    @fonte_botao.setter
+    def fonte_botao(self, nova_fonte_botao):
+        self.__fonte_botao = nova_fonte_botao
+    
+    @property
+    def botoes(self):
+        return self.__botoes
+    
+    @botoes.setter
+    def botoes(self, novos_botoes):
+        self.__botoes = novos_botoes
 
-        if estado == "menu":
-            menu.evento(evento)
+    @property
+    def acao(self):
+        return self.__acao
+    
+    @acao.setter
+    def acao(self, nova_acao):
+        self.__acao = nova_acao
 
-        elif estado == "jogo":
-            historia.evento(evento)
+    def evento(self, evento):
+        if evento.type == pygame.MOUSEBUTTONDOWN:
+            if evento.button == 1:
+                for nome, rect in self.botoes.items():
+                    if rect.collidepoint(evento.pos):
+                        self.acao = nome
 
-    #ATUALIZAÇÃO
-    if estado == "menu":
-        if menu.acao == "iniciar":
-            historia = Historia()
-            fade_alpha = 0
-            estado = "jogo"
+        if evento.type == pygame.KEYDOWN:
+            if evento.key == pygame.K_RETURN:
+                self.acao = "iniciar"
+            if evento.key == pygame.K_ESCAPE:
+                self.acao = "sair"
 
-        elif menu.acao == "sair":
-            pygame.quit()
-            sys.exit()
+    def desenhar(self, tela):
+        mouse_pos = pygame.mouse.get_pos()
 
-    elif estado == "jogo":
-        historia.atualizar()
+        # Título
+        titulo = self.fonte_titulo.render(
+            "Nothing's About to Happen to Me", True, BRANCO
+        )
+        tela.blit(
+            titulo,
+            titulo.get_rect(center=(LARGURA//2, ALTURA//2 - 120))
+        )
 
-        if historia.finalizada:
-            fade_alpha = 0
-            estado = "fade"
+        # Botões
+        for nome, rect in self.botoes.items():
+            hover = rect.collidepoint(mouse_pos)
+            cor = BOTAO_HOVER if hover else BOTAO_NORMAL
 
-    elif estado == "fade":
-        fade_alpha += fade_velocidade
-        if fade_alpha >= 255:
-            fade_alpha = 255
-            menu.acao = None
-            estado = "menu"
+            pygame.draw.rect(tela, cor, rect, 2)
 
-    #DESENHO 
-    tela.fill(PRETO)
-
-    if estado == "menu":
-        menu.desenhar(tela)
-
-    elif estado == "jogo":
-        historia.desenhar(tela)
-
-    elif estado == "fade":
-        historia.desenhar(tela)
-
-        fade = pygame.Surface((LARGURA, ALTURA))
-        fade.fill((0, 0, 0))
-        fade.set_alpha(fade_alpha)
-        tela.blit(fade, (0, 0))
-
-    pygame.display.flip()
-    clock.tick(FPS)
+            texto = nome.upper()
+            render = self.fonte_botao.render(texto, True, cor)
+            tela.blit(render, render.get_rect(center=rect.center))
