@@ -1,5 +1,5 @@
 import pygame
-from texto import *
+from utils.texto import TextoDigitado
 from config import *
 
 
@@ -7,38 +7,38 @@ from config import *
 # roteiro
 historia = [
     {
-        "texto": "Incrível como a cidade continua sendo a mesma.\nMesmo com tantas coisas terríveis pairando sobre si,\nela continua com essa máscara esbanjando beleza para os idiotas.",
-        "imagem": "yuri .jpg",
+        "texto": "Incrivel como a cidade continua sendo a mesma.\nMesmo com tantas coisas terriveis pairando sobre si,\nela continua com essa mascara esbanjando beleza para os idiotas.",
+        "imagem": "adicionais/imagens/cidade,png",
         "cor": VERMELHO,
         "proximo": 1
     },
     {
-        "texto": "Por que estou pensando nisso?\nAté parece que me importo com alguma coisa que acontece por aqui.",
-        "imagem": "teto.jpg",
+        "texto": "Por que estou pensando nisso?\nAte parece que me importo com alguma coisa que acontece por aqui.",
+        "imagem": "adicionais/imagens/olhar_frente.png",
         "cor": VERMELHO,
         "proximo": 2
     },
     {
-        "texto": "Às vezes eu até queria me importar.\nÉ uma pena existir alguém como eu.\nSem amigos.\nSem importância.",
-        "imagem": "yuri .jpg",
+        "texto": "As vezes eu ate queria me importar.\nE uma pena existir alguem como eu.\nSem amigos.\nSem importancia.",
+        "imagem":"adicionais/imagens/olhar_lateral.png",
         "cor": VERMELHO,
         "proximo": 3
     },
     {
-        "texto": "Estou cansada...\nEu só queria ser alguém melhor.\nMas talvez algum dia tudo isso pare.",
-        "imagem": "teto.jpg",
+        "texto": "Estou cansada...\nEu so queria ser alguem melhor.\nMas talvez algum dia tudo isso pare.",
+        "imagem": "adicionais/imagens/choro.png",
         "cor": VERMELHO,
         "proximo": 4
     },
     {
-        "texto": "Mas o que é aquilo?\nUm gato?",
-        "imagem": "yuri .jpg",
+        "texto": "Mas o que e aquilo?\nUm gato?",
+        "imagem":"adicionais/imagens/gato_longe.png",
         "cor": VERMELHO,
         "proximo": 5
     },
     {
         "texto": "Um gato de rua.",
-        "imagem": "teto.jpg",
+        "imagem": "adicionais/imagens/gato_perto.png",
         "cor": VERMELHO,
         "escolha": {
             "texto": "O que fazer?",
@@ -54,25 +54,51 @@ historia = [
 
 final_bom = [
     {
-        "texto": "Você está sozinho?\nQue idiota...\nAté parece que um gato falaria comigo.\nIsso é tão surreal quanto eu ser uma personagem de um jogo com a história triste kakakakakaka",
-        "imagem": "yuri .jpg",
+        "texto": "Voce esta sozinho?\nQue idiota...\nAte parece que um gato falaria comigo.\nIsso e tao surreal quanto eu ser uma personagem de um jogo com a historia triste kakakakakaka",
+        "imagem":"adicionais/imagens/gato_perto.png",
         "cor": VERMELHO,
         "proximo": 1
     },
     {
-        "texto": "Bem...Acho que você vem comigo.\nTalvez formemos uma boa dupla.",
-        "imagem": "teto.jpg",
+        "texto": "Bem...Acho que voce vem comigo.\nTalvez formemos uma boa dupla.",
+        "imagem": "adicionais/imagens/teto.jpg",
         "cor": VERMELHO,
         "proximo": 2
     },
     {
         "texto": "",
-        "imagem": "yuri .jpg",
+        "imagem":None,
         "cor": AZUL,
         "proximo": 3
     },
     {
-        "texto": "Talvez adotar você não tenha sido uma má ideia.\nPelo menos eu não me sinto tão só… \nObrigada por me ajudar meu bichano. \nTalvez agora eu tenha coragem de pedir ajuda.",
+        "texto": "",
+        "imagem":"adicionais/imagens/yuri.jpg",
+        "cor": AZUL,
+        "proximo": 4
+    },
+    {
+        "texto": "Talvez adotar voce nao tenha sido uma ma ideia.\nPelo menos eu nao me sinto tao so... \nObrigada por me ajudar meu bichano. \nTalvez agora eu tenha coragem de pedir ajuda.",
+        "imagem": None,
+        "cor": AZUL
+    },
+    {
+        "texto": "",
+        "imagem": None,
+        "cor": AZUL
+    },
+    {
+        "texto": "Nothings about to happen to me e uma homenagem a todos os meus queridos companheiros",
+        "imagem": "adicionais\Imagens\gatos.png",
+        "cor": AZUL
+    },
+    {
+        "texto": "Especialmente a nossa dev que partiu durante as producoes \nDescanse em paz Adelaide, te amo...",
+        "imagem": "adicionais\Imagens\dede.png",
+        "cor": AZUL
+    },
+    {
+        "texto": "Obrigada por jogar",
         "imagem": None,
         "cor": AZUL
     }
@@ -82,28 +108,28 @@ final_bom = [
 
 final_ruim = [
     {
-        "texto": "Você não é o único que está sozinho.\nAlgum dia você entende que eu nunca serei boa o suficiente para cuidar de você.",
-        "imagem": "yuri .jpg",
+        "texto": "Voce nao e o unico que esta sozinho.\nAlgum dia voce entendera que eu nao seria boa o suficiente para cuidar de voce.",
+        "imagem":"adicionais/imagens/gato_perto.png",
         "cor": VERMELHO,
         "proximo": 1
     },
     {
         "texto": "Adeus, gato.\nTenho problemas mais importantes para lidar.",
-        "imagem": "teto.jpg",
+        "imagem": "adicionais/imagens/gato_longe.png",
         "cor": VERMELHO_ESCURO,
         "proximo": 2
     },
     {
         "texto": "Adeus...",
-        "imagem": "yuri .jpg",
+        "imagem": "adicionais/imagens/gato_longe.png",
         "cor": VERMELHO_ESCURO,
         "proximo": 3
     },
     {
-        "texto": "E tudo continua do mesmo jeito. \nA cada dia que passa, o medo vai embora. \nE a cada dia que passa, essa ideia não assusta mais como antes.",
+        "texto": "E tudo continua do mesmo jeito. \nA cada dia que passa, o medo vai embora. \nE a cada dia que passa, essa ideia nao assusta mais como antes.",
         "imagem": None,
         "cor": VERMELHO_ESCURO
-    }
+    },
 ]
 
 
@@ -218,7 +244,20 @@ class Historia:
     def opcoes(self, nova_opcoes):
         self.__opcoes = nova_opcoes
 
+    def resetar(self):
+        self.cenas = historia        # roteiro inicial
+        self.indice = 0
+        self.cena_atual = self.cenas[self.indice]
 
+        self.texto = TextoDigitado(self.cena_atual["texto"])
+        self.imagem = self._carregar_imagem(self.cena_atual["imagem"])
+        self.cor_atual = self.cena_atual["cor"]
+
+        self.em_escolha = False
+        self.opcoes = []
+
+        self.tempo_fim_texto = None
+        self.finalizada = False
 
     def _carregar_imagem(self, nome):
         if nome is None:
@@ -243,19 +282,21 @@ class Historia:
     def avancar(self):
         self.tempo_fim_texto = None
 
+        # SE TEM ESCOLHA
         if "escolha" in self.cena_atual:
             self.em_escolha = True
             self.opcoes = list(self.cena_atual["escolha"]["opcoes"].items())
             return
 
+        # AVANÇA NORMALMENTE
         self.indice += 1
 
+        # FIM DO ROTEIRO
         if self.indice >= len(self.cenas):
             self.finalizada = True
             return
 
         self._trocar_cena()
-
 
 
     def _trocar_cena(self):
@@ -287,33 +328,28 @@ class Historia:
         self.finalizada = False
         self._trocar_cena() 
 
-
     def desenhar_caixa_texto(self, tela, texto_surface, estado):
-        dados = ESTADOS.get("historia", ESTADOS["neutro"])
-        cor = dados["cor"]
-        alpha = dados["alpha"]
-
         largura = LARGURA - 80
-        linhas = texto_surface.get_height() // 20
-        altura = 150 + (linhas * 5)
+        altura = 160
         x = 40
         y = ALTURA - altura - 30
+        dados = ESTADOS.get("historia", ESTADOS["neutro"])
+        cor = self.cor_atual
+        alpha = dados["alpha"]
 
-        # fundo transparente
+
         caixa = pygame.Surface((largura, altura), pygame.SRCALPHA)
-        caixa.fill((0, 0, 0, alpha))
+        caixa.fill((0, 0, 0, 140))
         tela.blit(caixa, (x, y))
 
-        # borda fina
-        espessura = 2 if cor == VERMELHO else 1
+        # borda
         pygame.draw.rect(
             tela,
-            cor,
+            self.cor_atual,
             (x, y, largura, altura),
-            espessura
+            2
         )
 
-        # texto
         tela.blit(texto_surface, (x + 20, y + 20))
 
         pulso = (pygame.time.get_ticks() // 500) % 2
@@ -323,10 +359,11 @@ class Historia:
 
 
     def desenhar(self, tela):
+
+        tela.fill((0, 0, 0))
+
         if self.imagem:
             tela.blit(self.imagem, (0, 0))
-        else:
-            tela.fill(PRETO)
 
         cor = self.cor_atual
 
@@ -338,11 +375,11 @@ class Historia:
 
 
     def _desenhar_escolhas(self, tela, cor):
-        fonte = pygame.font.Font("mago1.ttf", 30)
+        fonte = pygame.font.Font("adicionais/fonte/mago1.ttf", 35)
 
         self.botoes = []
 
-        y = ALTURA - 80
+        y = ALTURA - 100
 
         for texto, _ in self.opcoes:
             render = fonte.render(texto, True, cor)
