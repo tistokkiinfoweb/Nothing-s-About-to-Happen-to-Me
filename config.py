@@ -15,7 +15,7 @@ AZUL = (80, 120, 200)
 
 # Fonte
 pygame.font.init()
-FONTE = pygame.font.Font("mago1.ttf", 60)
+FONTE = pygame.font.Font("adicionais/fonte/mago1.ttf", 60)
 
 # Estados de sentimentos
 ESTADOS = {
