@@ -8,7 +8,7 @@ from config import *
 historia = [
     {
         "texto": "Incrivel como a cidade continua sendo a mesma.\nMesmo com tantas coisas terriveis pairando sobre si,\nela continua com essa mascara esbanjando beleza para os idiotas.",
-        "imagem": "adicionais/imagens/cidade,png",
+        "imagem": "adicionais/imagens/cidade.png",
         "cor": VERMELHO,
         "proximo": 1
     },
@@ -37,11 +37,11 @@ historia = [
         "proximo": 5
     },
     {
-        "texto": "Um gato de rua.",
+        "texto": "Um gato de rua. \nO que fazer?",
         "imagem": "adicionais/imagens/gato_perto.png",
         "cor": VERMELHO,
         "escolha": {
-            "texto": "O que fazer?",
+            "texto": "",
             "opcoes": {
                 "Levar o gato para casa": "final_bom",
                 "Seguir reto": "final_ruim"
@@ -61,7 +61,7 @@ final_bom = [
     },
     {
         "texto": "Bem...Acho que voce vem comigo.\nTalvez formemos uma boa dupla.",
-        "imagem": "adicionais/imagens/teto.jpg",
+        "imagem": "adicionais/imagens/adotar.png",
         "cor": VERMELHO,
         "proximo": 2
     },
@@ -73,7 +73,7 @@ final_bom = [
     },
     {
         "texto": "",
-        "imagem":"adicionais/imagens/yuri.jpg",
+        "imagem":"adicionais/imagens/feliz.png",
         "cor": AZUL,
         "proximo": 4
     },
@@ -93,7 +93,7 @@ final_bom = [
         "cor": AZUL
     },
     {
-        "texto": "Especialmente a nossa dev que partiu durante as producoes \nDescanse em paz Adelaide, te amo...",
+        "texto": "Especialmente a nossa dev que partiu dia 25 de janeiro durante as producoes \nDescanse em paz Adelaide, te amo...",
         "imagem": "adicionais\Imagens\dede.png",
         "cor": AZUL
     },
